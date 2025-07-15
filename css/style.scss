@@ -10,12 +10,19 @@
 .body {
   display: flex;
 }
-// header config
+
+/*
+Header configs.
+Header element: {div}logo, {button}hamburger button
+*/
 .site-header {
   // display
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 0 0 5px 5px;
+  position: relative;
+  z-index: 9000;
   // color
   background-color: c.$header-color-basic;
   .logo {
@@ -23,10 +30,7 @@
     width: 4rem;
     margin: 0.75rem;
   }
-  //   .title {
-  //     font-size: 1.7rem;
-  //     letter-spacing: 0.25rem;
-  //   }
+
   .hamburger-btn {
     display: flex;
     flex-direction: column;
@@ -49,13 +53,83 @@
     }
   }
 }
-.navi-links {
+
+/*
+navbar configs
+navbar element:{ul}navi-links, {li}navi-link, {ul}sub-menu, {li}sub-navi-link
+*/
+// abstract class
+%menu-fold {
   opacity: 0;
   max-height: 0;
   overflow: hidden;
   transition: an.$link-transtion;
-  &.is-open {
-    opacity: 1;
-    max-height: 30rem;
+}
+
+%menu-expand {
+  opacity: 1;
+  max-height: 90rem;
+  background-color: c.$link-color-basic;
+  transition: an.$link-transtion;
+}
+%link-panel {
+  margin: 2px 0;
+  display: flex;
+  align-items: start;
+  flex-wrap: nowrap;
+  background-color: c.$link-color-basic;
+  border-radius: 5px;
+  transition: an.$link-transtion;
+  cursor: pointer;
+  a {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 0.5rem;
+  }
+  &:hover {
+    background-color: c.$link-color-hover;
+  }
+  &:active {
+    background-color: c.$link-color-interactive;
+    color: c.$text-color-interactive;
+  }
+}
+
+.navbar {
+  margin-top: -5px;
+
+  .navi-links {
+    @extend %menu-fold;
+    &:first-child {
+      padding-top: 5px;
+    }
+    &.is-open {
+      @extend %menu-expand;
+    }
+    .navi-link {
+      @extend %link-panel;
+      flex-direction: column;
+      .has-submenu {
+        @extend %link-panel;
+        max-height: 90rem;
+      }
+    }
+  }
+  .sub-menu {
+    @extend %menu-fold;
+    width: 100%;
+    padding: 0;
+    .sub-navi-link {
+      @extend %link-panel;
+      &:hover {
+        justify-content: end;
+        a {
+          width: 99%;
+        }
+      }
+    }
+    &.is-open {
+      @extend %menu-expand;
+    }
   }
 }
