@@ -31,7 +31,10 @@ function initHamburgerBtn() {
 function initSubMenu() {
   const btn = document.querySelector(hasSubMenuToggle);
   const display = document.querySelector(subMenuToggle);
-  btn.addEventListener("click", () => {
+  btn.addEventListener("click", (event) => {
+    if (event.target.closest(".sub-menu")) {
+      return;
+    }
     display.classList.toggle(isOpen);
   });
 }
