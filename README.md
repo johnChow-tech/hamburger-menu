@@ -21,3 +21,4 @@
     git clone [仓库的URL，创建后你就能看到了]
     ```
 2.  在浏览器中直接打开 `index.html` 文件即可查看效果。
+3.  或者访问https://johnchow-tech.github.io/hamburger-menu/
